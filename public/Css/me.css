@@ -1,0 +1,53 @@
+.whole{
+    width:1000px;
+    height:1000px;
+}
+.top{
+    width: 1000px;
+    height:30%;
+    background-color: darkcyan;
+}
+.body{
+    margin-top: 20px;
+    background-color: white;
+}
+.body ul li a{
+    width: 1000px;
+    height:50px;
+    text-decoration: none;
+    color: black;
+    /*margin-left: 4%;*/
+    display: block;
+}
+.body ul{
+    padding:0;
+}
+.body ul li{
+    text-decoration: none;
+    list-style-type: none;
+    font-size: 28px;
+    width:100%;
+    height:50px;
+    border-bottom: 1px solid gray;
+    margin-bottom: 3px;
+    /*vertical-align:middle;*/
+    /*padding-top: 5px;*/
+}
+span{
+    float: left;
+    margin-left: 10px;
+}
+
+.divimg{
+    float: left;
+    margin-left:5%;
+    margin-bottom: 0;
+    margin-top: 5px;
+    /*padding-top: 10px;*/
+}
+.divimg1{
+    float: right;
+    margin-right:5%;
+    margin-bottom: 0;
+    margin-top: 5px;
+}

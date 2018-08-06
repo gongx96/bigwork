@@ -1,0 +1,54 @@
+p{
+    font-size: 12px;
+    color: red;
+    margin-left: 60px;
+    line-height: 16px;
+    margin-top:3px;
+    margin-bottom: 0px;
+}
+.whole{
+    background: url("../../public/Img/80358PICjYd_1024.jpg");
+    background-size: cover;
+    width:1000px;
+    height:800px;
+}
+.body{
+    width:800px;
+    height:500px;
+    padding-left:30%;
+    padding-top:20%;
+}
+.div1{
+    margin:10px;
+}
+.login_user,.login_passw{
+    width: 200px;
+    height:20px;
+    border: 1px solid #bbb;border-radius: 10px;
+    padding-left:60px;
+    padding-top:15px;
+    padding-bottom:10px;
+    line-height:20px;
+    background-color: #484646;
+    color: white;
+}
+.login_user{
+    background:url("../../public/Img/用户.png") no-repeat 0 0;
+    background-position: 15px 10px;
+    background-color: #484646;
+}
+.login_passw{
+    background:url("../../public/Img/密码.png") no-repeat 0 0;
+    background-position: 15px 10px;
+    background-color: #484646;
+}
+.login_login{
+    width: 260px;
+    height:40px;
+    /*padding-left:60px;*/
+    /*padding-top:15px;*/
+    /*padding-bottom:10px;*/
+    /*line-height:20px;*/
+    background-color:orangered;
+    color: white;
+}

@@ -1,0 +1,32 @@
+
+.login_phone,.login_email{
+    width: 200px;
+    height:20px;
+    border: 1px solid #bbb;border-radius: 10px;
+    padding-left:60px;
+    padding-top:15px;
+    padding-bottom:10px;
+    line-height:20px;
+    background-color: #484646;
+    color: white;
+}
+.login_phone{
+    background:url("../../public/Img/手机号.png") no-repeat 0 0;
+    background-position: 15px 10px;
+    background-color: #484646;
+}
+.login_email{
+    background:url("../../public/Img/邮箱.png") no-repeat 0 0;
+    background-position: 15px 10px;
+    background-color: #484646;
+}
+.login_login{
+    width: 260px;
+    height:40px;
+    /*padding-left:60px;*/
+    /*padding-top:15px;*/
+    /*padding-bottom:10px;*/
+    /*line-height:20px;*/
+    background-color:orangered;
+    color: white;
+}

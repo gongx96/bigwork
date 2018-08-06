@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link href="../../public/Css/login.css" rel="stylesheet" type="text/css"/>
+    <link href="../../public/Css/regis.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="whole">
+    <!--    <form method="post" action="../Controller/zhuce.php">-->
+    <div class="body">
+        <div style="margin-left: 15%;margin-bottom: 20px;">
+            <span style="font-size: 28px;color: #484646">注 册</span>
+        </div>
+        <div class="div1">
+
+            <input type="text" id="name" name="username" placeholder="input your name" class="login_user" style="border: 1px solid #bbb;border-radius: 10px;" onfocus="shuaxin()"><br>
+            <p id="error1"></p>
+        </div>
+        <div class="div1">
+
+            <input type="password" id="password" name="password" placeholder="input password" class="login_passw" style="border: 1px solid #bbb;border-radius: 10px;" onfocus="shuaxin()">
+            <p id="error2"></p>
+        </div>
+        <div class="div1">
+            <input type="password" id="password2" name="password2" placeholder="confirm password" class="login_passw" style="border: 1px solid #bbb;border-radius: 10px;" onfocus="shuaxin()">
+            <p id="error3"></p>
+        </div>
+        <div class="div1">
+            <input type="text" id="phone" name="phone" placeholder="input your phone " class="login_phone" style="" onfocus="shuaxin()">
+            <p id="error5"></p>
+        </div>
+        <div class="div1">
+            <input type="text" id="email" name="email" placeholder="input your email" class="login_email" style="border: 1px solid #bbb;border-radius: 10px;" onfocus="shuaxin()">
+            <p id="error6"></p>
+        </div>
+        <div class="div1">
+            <p id="error4"></p>
+            <input type="submit" value="注册" onclick="valite()" style="border: 1px solid #bbb;border-radius: 10px;" class="login_login">
+        </div>
+        <p>
+            <a href="login.html">已注册，去登录</a>
+        </p>
+    </div>
+    <!--    </form>-->
+</div>
+<script src="../../public/Js/jquery-2.2.1.min.js"></script>
+<script>
+    function shuaxin(){
+        document.getElementById("error1").innerHTML ="";
+        document.getElementById("error2").innerHTML ="";
+        document.getElementById("error3").innerHTML ="";
+        document.getElementById("error4").innerHTML ="";
+        document.getElementById("error5").innerHTML ="";
+        document.getElementById("error6").innerHTML ="";
+    }
+    function valite(){
+        var username=document.getElementById("name").value;
+        var password=document.getElementById("password").value;
+        var password2=document.getElementById("password2").value;
+
+        // if(username=="")
+        // {
+        //     document.getElementById("error1").innerHTML ="用户名不能为空";
+        //     // return false;
+        // }
+        if(username.length<4||username.length>10)
+        {
+            document.getElementById("error1").innerHTML ="用户名长度4-20个字符";
+            return false;
+        }
+        // if(password=="")
+        // {
+        //     document.getElementById("error2").innerHTML ="密码不能为空";
+        //     // return false;
+        // }
+        if(password.length<4||password.length>10)
+        {
+            document.getElementById("error2").innerHTML ="密码长度4-20个字符";
+            return false;
+        }
+        if(password!=password2)
+        {
+            document.getElementById("error3").innerHTML ="两次密码不一致";
+            return false;
+        }
+        var re_phone= /^1\d{10}$/;
+        var str_phone=document.getElementById("phone").value;
+        if(!re_phone.test(str_phone))
+        {
+            document.getElementById("error5").innerHTML ="请输入正确的手机号";
+            return false;
+        }
+        var re_email=  /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        var str_email=document.getElementById("email").value;
+        if(!re_email.test(str_email))
+        {
+            document.getElementById("error6").innerHTML ="请输入正确的邮箱";
+            return false;
+        }
+
+        $.ajax({
+            url:"../Controller/zhuce.php",//跳转的页面
+            method:"post",
+            data:{username:username,password:password,password2:password2,phone:str_phone,email:str_email},//向后台穿的数据
+            success:function(data){//后台returnd的值
+                if(data==2)
+                {
+                    alert("用户已存在");
+                }
+                if(data==1){
+                    window.location.href="index.html";
+                    // header("Location://localhost/Application/view/index.html");
+                } else if(data==-2)
+                {
+                    alert("两次密码不一致") ;
+                }
+                else if(data==0)
+                {
+                    alert("密码不能为空") ;
+                }
+                else if(data==-1)
+                {
+                    alert("用户名不能为空") ;
+                }
+
+            }
+        })
+    }
+</script>
+</body>
+</html>

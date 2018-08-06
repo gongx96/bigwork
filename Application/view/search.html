@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索</title>
+</head>
+<link href="../../public/Css/index.css" rel="stylesheet" type="text/css"/>
+<link href="../../public/Css/public.css" rel="stylesheet" type="text/css"/>
+<body>
+<div class="whole">
+    <div class="top">
+        <!--<form method="post" action="../Controller/search.php">-->
+        <input type="text" id="search" name="search" placeholder="search" class="search" onfocus="shuaxin()">
+        <input type="button" value="search" onclick="valite()">
+        <p id="error"></p>
+
+        <!--</form>-->
+    </div>
+    <div id="body" class="body">
+    </div>
+    <div>
+    </div>
+    <div class="bottom">
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="#">...</a></li>
+            <li><a href="#">...</a></li>
+            <li><a href="me.html">我的</a></li>
+        </ul>
+
+    </div>
+</div>
+<script src="../../public/Js/jquery-2.2.1.min.js"></script>
+<script>
+    function shuaxin(){
+        document.getElementById("error").innerHTML ="";
+    }
+    function valite(){
+        var search =document.getElementById("search").value;
+        $.ajax({
+            url:"../Controller/search.php",//跳转的页面
+            method:"post",
+            data:{search:search},//向后台穿的数据
+            success:function(data){//后台returnd的值
+                var str="";
+                if(data==0){
+                    document.getElementById("error").innerHTML ="没有搜到相关列表";
+// header("Location://localhost/Application/view/index.html");
+                }
+                else if(data){
+                    var jsonData = JSON.parse(data);
+                    for(var i=0;i<jsonData.length;i++){
+                        str+="<div style='width: 500px;height: 150px; background-color: #d8d6d6;'>";
+                        str+="<p style='width:85%;height:32px;margin-left: 10px;' ><span style='float: left;font-size: 24px'>"+jsonData[i].position+"</span>"+"<span style='float: right;font-size: 18px'>"+jsonData[i].salary+"/月</span></p>";
+                        // document.getElementById("error").innerHTML =jsonData[k];
+                        str+="<p style='width:85%;height:32px;margin-left: 10px;'><span style='float: left;font-size: 16px;margin-right: 10px;'>"+jsonData[i].record+"</span>"+"<span style='float: left;font-size: 16px'>"+jsonData[i].education+"</span>"+"<span style='float: right;font-size: 16px'>"+jsonData[i].count+"人</span></p>";
+                        str+="<p style='width:85%;height:32px;margin-left: 10px;'><span style='float: left;font-size: 16px'>"+jsonData[i].company+"</span></p>"
+                        str+="</div>";
+                        $("#body").html(str);
+                    }
+                }
+            }
+        })
+    }
+</script>
+
+
+
+</body>
+</html>

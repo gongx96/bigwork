@@ -1,0 +1,57 @@
+
+.search{
+    background:url("../../public/Img/搜索 (1).png") no-repeat 0 0;
+    background-position: 200px 10px;
+    width: 200px;
+    height:15px;
+    border: 1px solid #bbb;border-radius: 10px;
+    padding-left:60px;
+    padding-top:15px;
+    padding-bottom:10px;
+    line-height:15px;
+    background-color:#d8d6d6;
+    color: black;
+    margin: 30px;
+    margin-left: 100px;
+}
+.whole{
+    width: 1000px;
+    height:800px;
+    padding:50px;
+}
+.top{
+    width: 50%;
+    height:100px;
+    vertical-align: center;
+    margin-left: 200px;
+    background-color: dodgerblue;
+}
+.body{
+    width:50%;
+    margin-left: 20%;
+    /*background-color: #d8d6d6;*/
+}
+ul {
+    position: fixed;
+    bottom: 0;
+    width: 500px;
+    height:50px;
+    vertical-align: center;
+    /*margin-left: 200px;*/
+    border: 1px solid #e7e7e7;
+    background-color: #f3f3f3;
+    list-style-type: none;
+}
+ul li{
+    float: left;
+    margin-right:100px;
+    margin-top:12px;
+}
+li a {
+    text-decoration: none;
+    color: black;
+}
+.bottom{
+    width: 50%;
+    margin-left: 200px;
+}

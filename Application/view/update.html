@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改简历</title>
+    <style>
+
+    </style>
+    <link href="../../public/Css/update.css" rel="stylesheet" type="text/css"/>
+    <!--    <link href="../../public/Css/public.css" rel="stylesheet" type="text/css"/>-->
+    <style>
+        .whole {
+            margin-left: 400px;
+        }
+
+        span {
+            width: 115px;
+            display: inline-block;
+            margin-left: 12px;
+            font-size: 16px;
+        }
+
+        input {
+            font-size: 16px;
+            margin-left: 50px;
+            border-left: none;
+            border-right: none;
+            border-top: none;
+            border-bottom: 1px solid gray;
+            outline: none;
+        }
+
+        .tijao {
+            background-color: gary;
+        }
+
+    </style>
+</head>
+<body>
+<div class="whole">
+    <!--value通过发ajax获取-->
+    <!--<p><span>头像</span><img src="..."></p>-->
+    <p><span>姓名</span> <input id="name" name="name" value=""></p>
+    <p><span>性别</span><input type="radio" name="sex" value="2" style="width: 30px;"/><label>男</label>
+        <input name="sex" checked type="radio" value="1" style="width: 30px;"/><label>女</label></p>
+    <p><span>生日</span><input id="birth" name="birth" value=""></p>
+    <p><span>手机号</span><input id="phone" name="phone" value=""></p>
+    <p><span>邮箱</span><input id="email" name="email" value=""></p>
+    <p><span>工作时间</span><input id="worktime" name="worktime" value=""></p>
+    <p><span>期望薪资</span><input id="salary" name="salary" value=""></p>
+    <p><span>自我介绍</span><input id="introduce" name="introduce" value=""></p>
+    <p><span>工作经历</span><input id="work_experience" name="work_experience" value=""></p>
+    <p><span>教育经历</span><input id="edu_experience" name="edu_experience" value=""></p>
+    <input type="reset" value="重置">
+    <input type="button" value="提交" onclick="valite()" class="tijao">
+</div>
+<script src="../../public/Js/jquery-2.2.1.min.js"></script>
+<script>
+    $(document).ready(
+        function () {
+            $.ajax({
+                url: "../Controller/resume.php",//跳转的页面
+                method: "post",
+                data: {},//向后台传的数据
+                success: function (data) {//后台returnd的值
+                    // var str = "";
+                    // if (data == 0) {
+                    //     document.getElementById("error").innerHTML = "  ";
+                    // }
+                    if (data) {
+                        var jsonData = JSON.parse(data);
+                        document.getElementById('name').value = jsonData.name;
+                        $('input:radio[name=sex]').each(function (index, item) {
+                            if (item.value == (jsonData.sex || '')) {
+                                item.checked = true;
+                            }
+                        });
+                        document.getElementById('phone').value = jsonData.phone || '';
+                        document.getElementById('email').value = jsonData.email;
+                        document.getElementById('birth').value = jsonData.birthday || '';
+                        document.getElementById('worktime').value = jsonData.worktime || '';
+                        document.getElementById('salary').value = jsonData.salary || '';
+                        document.getElementById('introduce').value = jsonData.introduce || '';
+                        document.getElementById('work_experience').value = jsonData.work_experience || '';
+                        document.getElementById('edu_experience').value = jsonData.edu_experience || '';
+                    }
+                }
+            })
+        }) //第一步：发ajax获取value
+    function valite() {
+        //第二步：验证修改的数据，提交数据
+        var name = document.getElementById("name").value;
+        var birth = document.getElementById("birth").value;
+        // var phone=document.getElementById("phone").value;
+        // var email=document.getElementById('email').value;
+        var sex = $('input:radio[name="sex"]:checked').val();
+        var wortime = document.getElementById('worktime').value;
+        var salary = document.getElementById('salary').value;
+        var introduce = document.getElementById('introduce').value;
+        var work_experience = document.getElementById('work_experience').value;
+        var edu_experience = document.getElementById('edu_experience').value;
+
+        if (name.length < 4 || name.length > 10) {
+            alert("用户名长度4-20个字符");
+            // document.getElementById("error1").innerHTML ="";
+            return false;
+        }
+
+        var re_phone = /^1\d{10}$/;
+        var str_phone = document.getElementById("phone").value;
+        if (!re_phone.test(str_phone)) {
+            alert("请输入正确的手机号");
+            // document.getElementById("error5").innerHTML ="请输入正确的手机号";
+            return false;
+        }
+        var re_email = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        var str_email = document.getElementById("email").value;
+        if (!re_email.test(str_email)) {
+            alert("请输入正确的邮箱");
+            // document.getElementById("error6").innerHTML ="";
+            return false;
+        }
+        $.ajax({
+            url: "../Controller/update.php",//跳转的页面
+            method: "post",
+            data: {
+                name: name,
+                sex: sex,
+                phone: str_phone,
+                email: str_email,
+                birth: birth,
+                worktime: wortime,
+                salary: salary,
+                introduce: introduce,
+                work_experience: work_experience,
+                edu_experience: edu_experience
+            },//向后台传的数据
+            success: function (data) {//后台returnd的值
+                console.log(data);
+                var jsondata = JSON.parse(data);
+                if (!jsondata.success) {
+                    alert(jsondata.message);
+                    return false;
+                }
+                // alert('1');
+                window.location.href="me.html";
+            }
+        })
+
+    }
+</script>
+</body>
+</html>
