@@ -8,26 +8,31 @@
 </head>
 <body>
 <div class="whole">
+    <div class="header">
+        <div class="img">
+            <img src="../../public/Img/招聘网.png" style="float: right;">
+        </div>
+        <div class="bottom">
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <!--<li><a href="#">...</a></li>-->
+                <!--<li><a href="#">...</a></li>-->
+                <li><a href="me.html">我的</a></li>
+            </ul>
+        </div>
+        <div style="clear: both">
+        </div>
+    </div>
     <div class="top">
+        <div style="width: 100%;;height:46px;background-color: #F2F5F4;padding:30px 200px;">
         <!--<form method="post" action="../Controller/search.php">-->
-        <input type="text" id="search" name="search" placeholder="search" class="search" onfocus="intoSearchFunc()">
-        <p id="error"></p>
-
+        <input type="text" id="search" name="search" placeholder="php开发工程师" class="search">
+        <input type="button" id="search_button" class="search_button" name="search_button" value="搜索" onclick="valite()">
+        <!--<p id="error"></p>-->
+        </div>
         <!--</form>-->
     </div>
-    <div id="body" class="body">
-    </div>
-    <div>
-    </div>
-    <div class="bottom">
-        <ul>
-            <li><a href="index.html">首页</a></li>
-            <li><a href="#">...</a></li>
-            <li><a href="#">...</a></li>
-            <li><a href="me.html">我的</a></li>
-        </ul>
-
-    </div>
+<div id="body" class="body">
 </div>
 <script src="../../public/Js/jquery-2.2.1.min.js"></script>
 <script>
@@ -42,25 +47,66 @@
                     data: {},//向后台穿的数据
                     success: function (data) {//后台returnd的值
                         var str = "";
-                        if (data == 0) {
-                            document.getElementById("error").innerHTML = "没有相关列表";
+                        // if (data == 0) {
+                        //     document.getElementById("error").innerHTML = "没有相关列表";
 // header("Location://localhost/Application/view/index.html");
-                        }
-                        else if (data) {
+//                         }
+                        if (data) {
                             var jsonData = JSON.parse(data);
                             for (var i = 0; i < jsonData.length; i++) {
-                                str += "<div style='width: 500px;height: 150px; background-color: #d8d6d6;'>";
-                                str += "<p style='width:85%;height:32px;margin-left: 10px;' ><span style='float: left;font-size: 24px'>" + jsonData[i].position + "</span>" + "<span style='float: right;font-size: 18px'>" + jsonData[i].salary + "/月</span></p>";
+                                str += `<div class="position-list"><a href='detail.html?id=${jsonData[i].id}'>`;
+                                str += "<div class='list-top'><p style='width:85%;height:20px;margin-left: 10px;' ><span style='float: left;font-size:16px;color: #333;'>" + jsonData[i].position + "</span>" + "<span style='float: right;font-size: 16px;color:#fa6041'>" + jsonData[i].salary + "/月</span></p>";
                                 // document.getElementById("error").innerHTML =jsonData[k];
-                                str += "<p style='width:85%;height:32px;margin-left: 10px;'><span style='float: left;font-size: 16px;margin-right: 10px;'>" + jsonData[i].record + "</span>" + "<span style='float: left;font-size: 16px'>" + jsonData[i].education + "</span>" + "<span style='float: right;font-size: 16px'>" + jsonData[i].count + "人</span></p>";
-                                str += "<p style='width:85%;height:32px;margin-left: 10px;'><span style='float: left;font-size: 16px'>" + jsonData[i].company + "</span></p>"
-                                str += "</div>";
+                                str += "<p style='width:85%;height:20px;margin-left: 10px;'><span style='float: left;font-size: 16px;margin-right: 10px;color: #777;'>" + jsonData[i].record + "年经验</span>" + "<span style='float: left;font-size: 16px;color: #777;'>" + jsonData[i].education + "</span>" + "<span style='float: right;font-size: 16px;color: #777;'>招聘" + jsonData[i].count + "人</span></p></div>";
+                                str+="<div class='list-middle'></div>";
+                                str += "<div class='list-bootom'><span style='float: left;font-size: 16px;color: black;'>" + jsonData[i].company + "</span></div>";
+
+                                str += "</a></div>";
                                 $("#body").html(str);
                             }
                         }
                     }
                 })
             })
+
+     function valite(){
+         $("#body").html="";
+         var search =document.getElementById("search").value;
+         $.ajax({
+             url:"../Controller/search.php",//跳转的页面
+             method:"post",
+             data:{search:search},//向后台穿的数据
+             success:function(data){//后台returnd的值
+                 var str="";
+                 if(data==0){
+                     $("#body").html="没有搜到相关列表";
+                     // document.getElementById("error").innerHTML ="没有搜到相关列表";
+// header("Location://localhost/Application/view/index.html");
+                 }
+                 else if(data){
+                     var jsonData = JSON.parse(data);
+                     if(jsonData.length==0)
+                     {
+                         str+="<p style='height: 20px;width: 150px;color: black;font-size: 16px;margin: 0 auto;'>没有搜到相关列表</p>";
+                         $("#body").html(str);
+                     }
+                     else{
+                         for(var i=0;i<jsonData.length;i++){
+                             str += `<a href='detail.html?id=${jsonData[i].id}'><div class="position-list">`;
+                             str += "<div class='list-top'><p style='width:85%;height:20px;margin-left: 10px;' ><span style='float: left;font-size:16px;color: #333;'>" + jsonData[i].position + "</span>" + "<span style='float: right;font-size: 16px;color:#fa6041'>" + jsonData[i].salary + "/月</span></p>";
+                             // document.getElementById("error").innerHTML =jsonData[k];
+                             str += "<p style='width:85%;height:20px;margin-left: 10px;'><span style='float: left;font-size: 16px;margin-right: 10px;color: #777;'>" + jsonData[i].record + "年经验</span>" + "<span style='float: left;font-size: 16px;color: #777;'>" + jsonData[i].education + "</span>" + "<span style='float: right;font-size: 16px;color: #777;'>招聘" + jsonData[i].count + "人</span></p></div>";
+                             str+="<div class='list-middle'></div>";
+                             str += "<div class='list-bootom'><span style='float: left;font-size: 16px;color: black;'>" + jsonData[i].company + "</span></div>";
+                             str += "</div></a>";
+                             $("#body").html(str);
+                         }
+                     }
+
+                 }
+             }
+         })
+     }
 </script>
 </body>
 </html>

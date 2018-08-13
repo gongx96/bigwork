@@ -12,7 +12,7 @@ while($res=$result->fetch_row()){
         echo 1;
     }
     else {
-        echo "0";
+        echo 0;
     }
 }
 ?>

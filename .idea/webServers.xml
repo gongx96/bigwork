@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="eedf76f8-6e47-4224-9086-dd1fd8d8919c" name="localhost" url="http://localhost">
-        <fileTransfer port="0" mountedRoot="D:\phpstudy\PHPTutorial\WWW" accessType="MOUNT" />
+        <fileTransfer port="0" mountedRoot="C:\Program Files\phpstudy\PHPTutorial\WWW" accessType="MOUNT" />
       </webServer>
     </option>
   </component>

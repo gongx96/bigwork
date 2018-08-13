@@ -10,7 +10,8 @@
     <!--    <link href="../../public/Css/public.css" rel="stylesheet" type="text/css"/>-->
     <style>
         .whole {
-            margin-left: 400px;
+            /*margin-left: 400px;*/
+            width: 100%;
         }
 
         span {
@@ -22,37 +23,61 @@
 
         input {
             font-size: 16px;
-            margin-left: 50px;
-            border-left: none;
-            border-right: none;
-            border-top: none;
-            border-bottom: 1px solid gray;
+            /*margin-left: 50px;*/
+            /*border-left: none;*/
+            /*border-right: none;*/
+            /*border-top: none;*/
+            /*border-bottom: 1px solid gray;*/
+            border:none;
             outline: none;
+            background-color: #f8f8f8;
+            width:400px;
+            height:40px;
+        }
+        input::-webkit-input-placeholder{
+            color:#999999;
+            font-size: 16px;
+            padding-left: 10px;
+        }
+        .mess{
+            /*position: relative;*/
+            width: 500px;
+            margin:123px auto;
+            overflow: hidden;
+            background-color: white;
+            padding: 30px;
+            text-align: center;
         }
 
-        .tijao {
-            background-color: gary;
+        .tijao{
+            background-color: #00b38a;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            color: #FFFFFF;
         }
 
     </style>
 </head>
-<body>
+<body style="background-color:#F2F5F4">
 <div class="whole">
+    <div class="mess">
+        <h2 style="color:#00b38a;height:50px;">请完善简历信息</h2>
     <!--value通过发ajax获取-->
     <!--<p><span>头像</span><img src="..."></p>-->
-    <p><span>姓名</span> <input id="name" name="name" value=""></p>
-    <p><span>性别</span><input type="radio" name="sex" value="2" style="width: 30px;"/><label>男</label>
-        <input name="sex" checked type="radio" value="1" style="width: 30px;"/><label>女</label></p>
-    <p><span>生日</span><input id="birth" name="birth" value=""></p>
-    <p><span>手机号</span><input id="phone" name="phone" value=""></p>
-    <p><span>邮箱</span><input id="email" name="email" value=""></p>
-    <p><span>工作时间</span><input id="worktime" name="worktime" value=""></p>
-    <p><span>期望薪资</span><input id="salary" name="salary" value=""></p>
-    <p><span>自我介绍</span><input id="introduce" name="introduce" value=""></p>
-    <p><span>工作经历</span><input id="work_experience" name="work_experience" value=""></p>
-    <p><span>教育经历</span><input id="edu_experience" name="edu_experience" value=""></p>
-    <input type="reset" value="重置">
+    <input id="name" name="name" value="" placeholder="请输入姓名">
+    <p><input type="radio" name="sex" value="2" id="male" style="width: 20px;height:20px;vertical-align: middle;margin-left: -240px;"/><label style="margin-right: 60px;height:20px;vertical-align: middle;" for="male">男</label>
+        <input name="sex" checked type="radio" value="1" id="female" style="width: 20px;height:20px;vertical-align: middle;"/><label style="height:20px;vertical-align: middle;" for="female">女</label></p>
+    <p><input id="birth" name="birth" value="" placeholder="请输入生日"></p>
+    <p><input id="phone" name="phone" value="" placeholder="请输入手机号"></p>
+    <p><input id="email" name="email" value="" placeholder="请输入邮箱"></p>
+    <p><input id="worktime" name="worktime" value="" placeholder="请输入工作开始时间"></p>
+    <p><input id="salary" name="salary" value="" placeholder="请输入期望薪资"></p>
+    <p><input id="introduce" name="introduce" value="" placeholder="自我介绍..."></p>
+    <p><input id="work_experience" name="work_experience" value="" placeholder="工作经历..."></p>
+    <p><input id="edu_experience" name="edu_experience" value="" placeholder="教育经历..."></p>
+        <!--<p><input type="reset" value="重置" class="tijao"></p>-->
     <input type="button" value="提交" onclick="valite()" class="tijao">
+    </div>
 </div>
 <script src="../../public/Js/jquery-2.2.1.min.js"></script>
 <script>
@@ -78,7 +103,7 @@
                         document.getElementById('phone').value = jsonData.phone || '';
                         document.getElementById('email').value = jsonData.email;
                         document.getElementById('birth').value = jsonData.birthday || '';
-                        document.getElementById('worktime').value = jsonData.worktime || '';
+                        document.getElementById('worktime').value = jsonData.work_time || '';
                         document.getElementById('salary').value = jsonData.salary || '';
                         document.getElementById('introduce').value = jsonData.introduce || '';
                         document.getElementById('work_experience').value = jsonData.work_experience || '';
@@ -136,7 +161,7 @@
                 edu_experience: edu_experience
             },//向后台传的数据
             success: function (data) {//后台returnd的值
-                console.log(data);
+                // console.log(data);
                 var jsondata = JSON.parse(data);
                 if (!jsondata.success) {
                     alert(jsondata.message);
@@ -146,7 +171,6 @@
                 window.location.href="me.html";
             }
         })
-
     }
 </script>
 </body>

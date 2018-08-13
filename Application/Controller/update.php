@@ -54,9 +54,9 @@ if (empty($salary)) {
     echo json_encode($result);
     return;
 }
-$sql1 = "update `user` set name='{$name}',phone='{$phone}',email='{$email}',sex={$sex} where id={$id}";
+$sql1 = "update `user` set name='{$name}',phone='{$phone}',email='{$email}' where id={$id}";
 $result1 = $conn->query($sql1);
-$sql2 = "update `resume` set birthday='{$birth}',salary=$salary,introduce='{$introduce}',worktime='{$worktime}',work_experience='{$work_experience}',edu_experience='{$edu_experience}' where user_id='{$id}'";
+$sql2 = "update `resume` set sex={$sex},birthday='{$birth}',salary=$salary,introduce='{$introduce}',work_time='{$worktime}' where userid='{$id}'";
 $result2 = $conn->query($sql2);
 echo json_encode($result);
 //$array=array();

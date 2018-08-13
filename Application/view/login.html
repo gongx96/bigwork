@@ -7,28 +7,38 @@
 </head>
 <body>
 <div class="whole">
+    <div class="header">
+        <a href="index.html"><div class="lg"></div></a>
+    </div>
     <!--<form method="post" action="../Controller/login.php" onsubmit=" return valite()">-->
-        <div class="body">
-            <div style="margin-left: 15%;margin-bottom: 20px;">
-                <span style="font-size: 28px;color: #484646">登 录</span>
-            </div>
+    <div class="body">
+        <div  class="left">
+            <!--<div style="height: 80px;">-->
+            <!--<span style="font-size: 28px;color: #484646">登 录</span>-->
+            <!--</div>-->
             <div class="div1">
                 <!--<span>用户名：</span>-->
-                <input type="text" id="name" name="username" placeholder="input your name" class="login_user" style="border: 1px solid #bbb;border-radius: 10px;" onfocus="shuaxin()"><br>
+                <input type="text" id="name" name="username" placeholder="请输入用户名" class="login_user"  onfocus="shuaxin()"><br>
                 <p id="error1"></p>
             </div>
             <div class="div1">
                 <!--<span>密&nbsp&nbsp&nbsp码：</span>-->
-                <input type="password" id="password" name="password" placeholder="input password" class="login_passw" style="border: 1px solid #bbb;border-radius: 10px;" onfocus="shuaxin()">
+                <input type="password" id="password" name="password" placeholder="请输入密码" class="login_passw" onfocus="shuaxin()">
                 <p id="error2"></p>
             </div>
             <div class="div1">
-               <input type="button" value="Login" onclick="valite()" style="border: 1px solid #bbb;border-radius: 10px;" class="login_login">
-            </div>
-            <div class="div1">
-                <a href="zhuce.html">还没有注册？点击这里注册</a>
+                <input type="button" value="登录" onclick="valite()"  class="login_login">
             </div>
         </div>
+        <div class="middle">
+        </div>
+        <div class="right">
+            <span style="color: black; margin-top: 44px;display: block;">还没有账号:</span><br>
+            <a href="zhuce.html" style="color: #00b38a;">前往注册</a>
+        </div>
+        <div style="clear: both">
+        </div>
+    </div>
     <!--</form>-->
 </div>
 <script src="../../public/Js/jquery-2.2.1.min.js"></script>
@@ -45,19 +55,15 @@
             document.getElementById("error1").innerHTML ="用户名不能为空";
             return false;
         }
-        // if(username.length<=4||username.length>10)
-        // {
-        //     document.getElementById("error1").innerHTML ="用户名长度4-20个字符";
-        // }
         if(password=="")
         {
             document.getElementById("error2").innerHTML ="密码不能为空";
             return false;
         }
         $.ajax({
-             url:"../Controller/login.php",//跳转的页面
-                 method:"post",
-                data:{username:username,password:password},//向后台穿的数据
+            url:"../Controller/login.php",//跳转的页面
+            method:"post",
+            data:{username:username,password:password},//向后台穿的数据
             success:function(data){//后台returnd的值
                 if(data==1){
                     window.location.href="index.html";
@@ -67,12 +73,7 @@
                 }
             }
         })
-        // if(password.length<=4||password.length>10)
-        // {
-        //     document.getElementById("error1").innerHTML ="用户名长度4-20个字符";
-        // }
-
     }
-    </script>
+</script>
 </body>
 </html>
