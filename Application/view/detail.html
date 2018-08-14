@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>简历详情页面</title>
+    <!--<link href="../../public/Css/index.css" rel="stylesheet" type="text/css"/>-->
+    <style>
+        .whole{
+            width:100%;
+        }
+        html,body{
+            margin: 0;
+            padding: 0;
+            background-color: #F2F5F4;
+        }
+        .top{
+            width:100%;
+            /*height:46px;*/
+            padding:30px 60px;
+        }
+        .body{
+            width:100%;
+            /*background-color: #F2F5F4;*/
+        }
+        .position{
+            width: 50%;
+            height:100%;
+            /*height:150px;*/
+            float: left;
+            display: block;
+        }
+        .do{
+            width: 40%;
+            /*height:150px;*/
+            float: left;
+            padding:5%;
+        }
+        .company{
+            width: 39.5%;
+            height:1000px;
+            float:left;
+            background-color: #FFFFFF;
+            /*text-align: center;*/
+        }
+        .express{
+            width: 60%;
+            height:1000px;
+            /*display: inline-block;*/
+            float: left;
+            background-color: #FFFFFF;
+            margin-right: 0.5%;
+        }
+        .bottom{
+            position: fixed;
+            bottom: 0;
+            width: 500px;
+            height:50px;
+        }
+        .collect{
+            float: right;
+            display: inline-block;
+            height: 44px;
+            width: 104px;
+            line-height: 44px;
+            text-align: center;
+            border: 1px solid #00b38a;
+            border-radius: 3px;
+            background-color: #ebf0ef;
+            /*cursor: pointer;*/
+            font-size: 14px;
+            color: #00b38a;
+            /*margin-right: 60px;*/
+        }
+        ul{
+            margin: 20px auto;
+            padding: 0;
+            list-style: none;
+        }
+        li{
+            /*position: relative;*/
+            margin: 0 0 16px;
+            color: #737373;
+            line-height: 25px;
+        }
+    </style>
+</head>
+
+<body>
+     <div class="whole">
+         <div class="top">
+         <div id=position class="position">
+         </div>
+             <div  class="do">
+                 <div id="collect" style="display: inline-block">
+                 </div>
+                 <div id="send" style="display: inline-block">
+                     <!--<input type="button" class="collect" value="投递简历">-->
+                 </div>
+               </div>
+             <div style="clear: both"></div>
+         </div>
+         <div class="body">
+         <div id=express class="express">
+         </div>
+             <div id =company class="company">
+             </div>
+         </div>
+     </div>
+     <script src="../../public/Js/jquery-2.2.1.min.js"></script>
+     <script>
+         // window.location.href.split('?');
+         // window.location.href.split('?')[0].split('=');
+         var resume_id= window.location.href.split('?')[1].split('=')[1];
+
+         $(document).ready(
+             function () {
+                 $.ajax({
+                     url: "../Controller/detail.php",//跳转的页面
+                     method: "post",
+                     data: {resume_id:resume_id},//向后台穿的数据
+                     success: function (data) {//后台returnd的值
+                         var str = "";
+                         if (data) {
+                             var jsonData = JSON.parse(data);
+                             // str+=`<div class="position-list">`;
+                             str += "<p style='width:85%;height:40px;margin-left: 10px;' ><span style='font-size:36px;color: #333;'>" + jsonData.position + "</span></p>" + "<p style='width:85%;height:20px;margin-left: 10px;'><span style='font-size: 18px;color:#fa6041'>" + jsonData.salary + "/月</span></p>";
+                             // document.getElementById("error").innerHTML =jsonData[k];
+                             str += "<p style='width:85%;height:20px;margin-left: 10px;'><span style='float: left;font-size: 18px;margin-right: 10px;color: #777;'>" + jsonData.record + "年经验</span>" + "<span style='float: left;font-size: 18px;color: #777;margin-right: 10px;'>" + jsonData.education + "</span>" + "<span style='float: left;font-size: 18px;color: #777;'>招聘" + jsonData.count + "人</span></p>";
+
+                             $("#position").html(str);
+                             var collect="";
+                             if(jsonData.collect!=1)
+                             {
+                                 collect+='<input  type="button" class="collect" value="收藏" id="store" onclick="store()">';
+                                $("#collect").html(collect);
+                             }
+                             if(jsonData.collect==1)
+                             {
+                                 collect+='<input  type="button" class="collect" value="取消收藏" onclick="restore()">';
+                                 $("#collect").html(collect);
+                             }
+                             var send="";
+                             if(jsonData.send!=1)
+                             {
+                                 send+='<input  type="button" class="collect" value="投递简历" id="send" onclick="send()">';
+                                 $("#send").html(send);
+                             }
+                             if(jsonData.send==1)
+                             {
+                                   send+='<input  type="button" class="collect" value="已投递" onclick="resend()">';
+                                 $("#send").html(send);
+                             }
+                                 var str1="";
+                             str1+="<div style='width: 80%;height:200px;margin:0 auto;'><h2 style='color: #00b38a'>公司信息</h2><ul><li>"
+                                 +jsonData.company+"</li><li>"+jsonData.address+"</li><li>"+jsonData.employee+"</li><li>"+jsonData.email+
+                                 "</li><li>公司介绍："+jsonData.introduce+"</li></ul></div>";
+                                 // str1="<p style='width:85%;height:32px;margin-left: 10px;'><span style='float: left;font-size: 16px'>" + jsonData.company + "</span></p>"
+                             $("#company").html(str1);
+                             $("#express").html(jsonData.express);
+                         }
+                     }
+                 })
+             })
+         function store() {
+             $.ajax({
+                 url: "../Controller/store.php",//跳转的页面
+                 method: "post",
+                 data: {resume_id: resume_id},//向后台穿的数据
+                 success: function (data) {//后台returnd的值
+                     if(data==0)
+                     {
+                         window.location.href="login.html";
+                     }
+                     var jasondata= JSON.parse(data);
+                     if(jasondata.success)
+                     {
+                         alert("收藏成功");
+                         var collect="";
+                         collect+='<input  type="button" class="collect" value="取消收藏" id="restore" onclick="restore()">';
+                         $("#collect").html(collect);
+                     }
+                 }
+             })
+         }
+         function restore() {
+             $.ajax({
+                 url: "../Controller/reset.php",//跳转的页面
+                 method: "post",
+                 data: {resume_id: resume_id},//向后台穿的数据
+                 success: function (data) {//后台returnd的值
+                     if(data==0)
+                     {
+                         window.location.href="login.html";
+                     }
+                     var jasondata= JSON.parse(data);
+                     if(jasondata.success)
+                     {
+                         alert("已取消收藏");
+                         var collect="";
+                         collect+='<input  type="button" class="collect" value="收藏" id="store" onclick="store()">';
+                         $("#collect").html(collect)
+                     }
+                 }
+             })
+         }
+
+         function send() {
+             $.ajax({
+                 url: "../Controller/send.php",//跳转的页面
+                 method: "post",
+                 data: {resume_id: resume_id},//向后台穿的数据
+                 success: function (data) {//后台returnd的值
+                     if(data==0)
+                     {
+                         window.location.href="login.html";
+                     }
+                     var jasondata= JSON.parse(data);
+                     if(jasondata.success)
+                     {
+                         alert("投递成功");
+                         var send="";
+                         send+='<input  type="button" class="collect" value="已投递" id="resend" onclick="resend()">';
+                         $("#send").html(send);
+                     }
+                 }
+             })
+         }
+         function resend() {
+          alert("已投递，不可重复投递！");
+         }
+     </script>
+</body>
+</html>

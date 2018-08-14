@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的投递</title>
+    <link href="../../public/Css/index.css" rel="stylesheet" type="text/css"/>
+    <link href="../../public/Css/public.css" rel="stylesheet" type="text/css"/>
+
+</head>
+<body>
+<div class="whole">
+    <div id="send" style="width: 100%;">
+
+    </div>
+</div>
+<script src="../../public/Js/jquery-2.2.1.min.js"></script>
+<script>
+    $(document).ready(
+        function () {
+            $.ajax({
+                url: "../Controller/my_send.php",//跳转的页面
+                method: "post",
+                data: {},//向后台穿的数据
+                success: function (data) {//后台returnd的值
+                    var str = "";
+                    if (data == 0) {
+                        header("Location://localhost/Application/view/login.html");
+                    }
+                    if(data==-1)
+                    {
+                        str += "还没有相关列表";
+                        $("#send").html(str);
+                        return false;
+                    }
+                    else if (data) {
+                        var jsonData = JSON.parse(data);
+                        for (var i = 0; i < jsonData.length; i++) {
+                            str += `<div class="position-list"><a href='detail.html?id=${jsonData[i].id}'>`;
+                            str += "<div class='list-top'><p style='width:85%;height:20px;margin-left: 10px;' ><span style='float: left;font-size:16px;color: #333;'>" + jsonData[i].position + "</span>" + "<span style='float: right;font-size: 16px;color:#fa6041'>" + jsonData[i].salary + "/月</span></p>";
+                            // document.getElementById("error").innerHTML =jsonData[k];
+                            str += "<p style='width:85%;height:20px;margin-left: 10px;'><span style='float: left;font-size: 16px;margin-right: 10px;color: #777;'>" + jsonData[i].record + "年经验</span>" + "<span style='float: left;font-size: 16px;color: #777;'>" + jsonData[i].education + "</span>" + "<span style='float: right;font-size: 16px;color: #777;'>招聘" + jsonData[i].count + "人</span></p></div>";
+                            str += "<div class='list-middle'></div>";
+                            str += "<div class='list-bootom'><span style='float: left;font-size: 16px;color: black;'>" + jsonData[i].company + "</span><span style='float: right;font-size: 16px;color: black;'>投递时间：" + jsonData[i].update_time.substr(0,10)+ "</span></div>";
+                            str += "</a></div>";
+                            $("#send").html(str);
+                        }
+                    }
+                }
+            })
+        })
+
+</script>
+</body>
+</html>

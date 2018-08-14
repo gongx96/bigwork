@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        span{
+            width: 100px;
+            height: 30px;
+            margin-bottom: 12px;
+            margin-right: 50px;
+            display: inline-block;
+        }
+        div{
+            width:1000px;
+            margin: 0 auto;
+        }
+        </style>
+</head>
+<body>
+<div id="content">
+</div>
+<script src="../../public/Js/jquery-2.2.1.min.js"></script>
+<script>
+    $(document).ready(
+        function () {
+            $.ajax({
+                url: "../Controller/resume.php",//跳转的页面
+                method: "post",
+                data: {},//向后台传的数据
+                success: function (data) {//后台returnd的值
+                    // var str = "";
+                    // if (data == 0) {
+                    //     document.getElementById("error").innerHTML = "  ";
+                    // }
+                    if (data) {
+                        var jsonData = JSON.parse(data);
+                       // var name=document.getElementById('name').value;
+                          var name= jsonData.name;
+                        $('input:radio[name=sex]').each(function (index, item) {
+                            if (item.value == (jsonData.sex || '')) {
+                                item.checked = true;
+                            }
+                        });
+                        // var phone=document.getElementById('phone').value;
+                           var phone= jsonData.phone || '';
+                        // var email=document.getElementById('email').value;
+                           var email= jsonData.email;
+                        // var birth=document.getElementById('birth').value;
+                       var birth= jsonData.birthday || '';
+                        // var worktime=document.getElementById('worktime').value;
+                          var  worktime= jsonData.worktime || '';
+                        // var salary=document.getElementById('salary').value;
+                        var salary= jsonData.salary || '';
+                        // var introduce=document.getElementById('introduce').value;
+                        var introduce= jsonData.introduce || '';
+                        var str="";
+                        str+="<p><span>姓名:</span><span>"+name+"</span></p>";
+                        str+="<p><span>手机号:</span><span>"+phone+"</span></p>";
+                        str+="<p><span>邮箱:</span><span>"+email+"</span></p>";
+                        str+="<p><span>工作开始时间:</span><span>"+worktime+"</span></p>";
+                        str+="<p><span>期望薪资:</span><span>"+salary+"</span></p>";
+                        str+="<p><span>个人介绍:</span><span>"+introduce+"</span></p>";
+                       $("#content").html(str);
+
+                        // document.getElementById('work_experience').value = jsonData.work_experience || '';
+                        // document.getElementById('edu_experience').value = jsonData.edu_experience || '';
+                    }
+                }
+            })
+        })
+
+</script>
+    </body>
+</html>
