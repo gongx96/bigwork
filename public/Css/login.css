@@ -3,6 +3,7 @@ p{
     color: red;
     /*margin-left: 60px;*/
     line-height: 16px;
+    margin: 0;
     /*margin-top:3px;*/
     /*margin-bottom: 0px;*/
 }
@@ -86,6 +87,7 @@ html,body{
     border:0;
     border-bottom: 1px solid #bbb;
     color: gray;
+    outline: none;
 }
 .login_user::-webkit-input-placeholder{
     color:#ccc;

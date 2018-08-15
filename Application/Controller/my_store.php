@@ -8,6 +8,7 @@ if(!isset($_SESSION["id"]))
 }
 $user_id=$_SESSION["id"];
 $sql="select employ.* from store join employ on employ.id=store.resume_id where store.user_id={$user_id}";
+
 //$sql_id="select resume_id from store where user_id={$user_id}";
 //$res_id=$conn->query($sql_id);
 //$resume_id=$res_id->fetch_assoc()['resume_id'];

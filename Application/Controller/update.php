@@ -14,8 +14,6 @@ $email = $_POST["email"];
 $worktime = $_POST["worktime"];
 $salary = $_POST["salary"];
 $introduce = $_POST["introduce"];
-$work_experience = $_POST["work_experience"];
-$edu_experience = $_POST["edu_experience"];
 //$sql_update1=update user set name=,
 //$sql_update2=update user set sex=,birthday=,
 //var_dump($res->fetch_row());
@@ -50,7 +48,7 @@ if (empty($email)) {
 if (empty($salary)) {
     $result['success']  = false;
     $result['code'] = 0;
-    $result['message'] = '薪资不能为空';
+    $result['message'] = '希望薪资不能为空';
     echo json_encode($result);
     return;
 }

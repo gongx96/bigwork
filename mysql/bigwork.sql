@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-08-13 17:08:32
+Date: 2018-08-14 18:13:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,12 +30,14 @@ CREATE TABLE `company_news` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `companyname` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of company_news
 -- ----------------------------
 INSERT INTO `company_news` VALUES ('1', '1', '龙河大厦', '15105177246', '15105177246@139.com', '20-99', '正处于创业初期，期待有志之士的加入', '2018-08-13 15:56:34', 'i++');
+INSERT INTO `company_news` VALUES ('2', '8', null, null, null, null, null, '2018-08-14 17:24:17', 'bhjdrt');
+INSERT INTO `company_news` VALUES ('3', '9', '海州区巨龙南路123号', '15169874563', '15169874563@139.com', '9999人', '注重人才培养，行业领先水平。啦啦啦啦。技能满分。福利待遇好。选择', '2018-08-14 17:49:25', 'test1');
 
 -- ----------------------------
 -- Table structure for `company_user`
@@ -47,12 +49,20 @@ CREATE TABLE `company_user` (
   `password` varchar(32) DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of company_user
 -- ----------------------------
 INSERT INTO `company_user` VALUES ('1', 'ABCD', '111111', '2018-08-07 14:42:43');
+INSERT INTO `company_user` VALUES ('2', '麦诺为信息科技有限公司', '111111', '2018-08-14 17:12:18');
+INSERT INTO `company_user` VALUES ('3', '小星星信息科技有限公司', '111111', '2018-08-14 17:14:19');
+INSERT INTO `company_user` VALUES ('4', '小星星啊', '111111', '2018-08-14 17:14:49');
+INSERT INTO `company_user` VALUES ('5', 'ABC的', '111111', '2018-08-14 17:19:53');
+INSERT INTO `company_user` VALUES ('6', 'ABCe', '111111', '2018-08-14 17:21:50');
+INSERT INTO `company_user` VALUES ('7', 'bhjdrt h', '111111', '2018-08-14 17:22:56');
+INSERT INTO `company_user` VALUES ('8', 'bhjdrt', '111111', '2018-08-14 17:24:17');
+INSERT INTO `company_user` VALUES ('9', 'test1', '123123', '2018-08-14 17:30:44');
 
 -- ----------------------------
 -- Table structure for `employ`
@@ -94,13 +104,14 @@ CREATE TABLE `resume` (
   `introduce` text,
   `userid` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of resume
 -- ----------------------------
 INSERT INTO `resume` VALUES ('1', null, '1', '2018-08-10 17:40:35', '6000', '2018-08-08 17:38:32', '2017-08-08 17:38:32', '热爱学习', '1');
 INSERT INTO `resume` VALUES ('2', null, '2', '2018-07-25 10:36:10', '8000', '1996-02-19 00:00:00', '1996-02-19 00:00:00', '', '18');
+INSERT INTO `resume` VALUES ('3', null, null, '2018-08-14 14:11:24', null, null, null, null, '19');
 
 -- ----------------------------
 -- Table structure for `resume_send`
@@ -138,7 +149,6 @@ CREATE TABLE `store` (
 -- ----------------------------
 -- Records of store
 -- ----------------------------
-INSERT INTO `store` VALUES ('20', '1', '1', 'i++', 'java开发工程师', '2018-08-13 14:21:50', '5000');
 INSERT INTO `store` VALUES ('19', '1', '3', 'i++', '软件测试工程师', '2018-08-13 14:14:49', '4000');
 
 -- ----------------------------
@@ -154,12 +164,13 @@ CREATE TABLE `user` (
   `email` varchar(32) NOT NULL,
   `type` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', 'admin', '123456', '2018-08-10 17:40:35', '15062280157', '15062280157@139.com', null);
+INSERT INTO `user` VALUES ('19', 'root', '123456', '2018-08-14 14:11:24', '18750034291', '18750034291@139.com', null);
 INSERT INTO `user` VALUES ('15', '1234567', '123456', '2018-07-25 10:09:00', '15062280157', '1602507955@qq.com', null);
 INSERT INTO `user` VALUES ('16', '12345678', '123456', '2018-07-25 10:10:08', '15062280157', '1602507955@qq.com', null);
 INSERT INTO `user` VALUES ('17', '123456789', '123456', '2018-07-25 10:11:40', '15062280157', '1602507955@qq.com', null);
